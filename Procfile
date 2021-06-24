@@ -1,1 +1,1 @@
-web: gunicorn Flint:app --preload --timeout 60
+web: gunicorn Flint1993:app --preload --timeout 60
