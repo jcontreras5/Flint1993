@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if current_user.is_authenticated %}
+    <div class="row">
+        <h3>{{ user.username }}'s closet</h3>
+    </div>
+        
+    <div class="row d-flex justify-content-center Tops "  >
+        <h3 class="text-center">Tops</h3> 
+        {% for item in user_closet %}
+            {% if item.article_category=="Tops" %}
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img class="img-thumbnail" src="{{ item.image }}" alt="{{ item.name }}">
+                  </div>
+                  <div class="flip-card-back" style="background-color: #1c3146; padding-top: 50px;">
+                    <div class="col">
+                      <h1>{{ item.designer }}</h1>
+                      <h2>{{ item.name }}</h2>
+                      <h2>$ {{ item.price }}</h2>
+                  </div>
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+        <div class="row  d-flex justify-content-center Bottoms"  >
+            <h3 class="text-center">Bottoms</h3> 
+            {% for item in user_closet %}
+                {% if item.article_category=="Bottoms" %}
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                      <div class="flip-card-front">
+                        <img class="img-thumbnail" src="{{ item.image }}" alt="{{ item.name }}">
+                      </div>
+                      <div class="flip-card-back" style="background-color: #1c3146; padding-top: 50px;">
+                        <div class="col">
+                          <h1>{{ item.designer }}</h1>
+                          <h2>{{ item.name }}</h2>
+                          <h2>$ {{ item.price }}</h2>
+                      </div>
+                      </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div> 
+
+        <div class="row  d-flex justify-content-center Shoes"  >
+            <h3 class="text-center">Shoes</h3> 
+            {% for item in user_closet %}
+                {% if item.article_category=="Shoes" %}
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                      <div class="flip-card-front">
+                        <img class="img-thumbnail" src="{{ item.image }}" alt="{{ item.name }}">
+                      </div>
+                      <div class="flip-card-back" style="background-color: #1c3146; padding-top: 50px;">
+                        <div class="col">
+                          <h1>{{ item.designer }}</h1>
+                          <h2>{{ item.name }}</h2>
+                          <h2>$ {{ item.price }}</h2>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div> 
+{% endif %}
+    
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center">Explore other user's closets!</h1>
+
+{% if current_user.is_authenticated %} 
+    <div class="row justify-content-evenly">
+    {% for user in users %}
+        {% if user != current_user %}
+        <div class="card d-flex justify-content-center " style="width: 18rem;">
+            <div class="card-body text-center">
+              <h5 class="card-title text-center">{{ user.username }}</h5>
+              <h5 class="card-subtitle">{{ user.email }}</h5>
+              <a href="/usercloset/{{user.id}} "class="myButton">view user's closet </a>
+              
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    {% else %}
+    <h2>Log in to see/make posts!</h2>
+
+{% endif %}
+{% endblock content %}

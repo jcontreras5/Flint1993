@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for cat,msg in messages %}
+                    {% if cat == 'user-created' %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{msg}}</strong> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% elif cat == 'auth-uncertain' %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{msg}}</strong> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    
+    {% if current_user.is_authenticated %} 
+    <div class="row"><img class="m-auto mb-3" src="../../static/image/skull.png" style="height: 200px; width: 200px;" alt="brand"></div>
+    <div class="row">
+        <iframe class="responsive-iframe" id="NiceKicks"
+        style="
+        width: 100%;
+        height: 70vh;
+        outline:thick;
+        outline-style:outset;
+        resize: both;
+        overflow: hidden;
+        background-color: white;
+        "
+        src="https://www.nicekicks.com/">
+        </iframe>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="row"><img class="m-auto" src="../../static/image/skull.png" style="height: 400px; width: 400px;" alt="brand"></div>
+        <div class="row">
+        <h1 class="text-center mt-3">Welcome to Flint1993</h1>
+
+
+        </div>
+        <h4 class="mt-3 lh-lg">Feel free to create an account to show of your personal attire collection. Feel free to get inspiration on the latest sneaker and attire news when logged in as well. When you have created an account, you can add,update,and delete items in your closet. You can also view other user's closets when logged in. </h4>
+
+    </div>
+    {% endif %}
+{% endblock %}

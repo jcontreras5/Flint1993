@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if current_user.is_authenticated %} 
+
+    <div class="row ">
+        <div class="profile_details" >
+        <h3 class="text-center">Welcome, {{ current_user.username }}!</h3>
+        <h3 class="text-center">Here are your profile details:</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Email: {{ current_user.email }}</li>
+            <li class="list-group-item">Token: {{ current_user.token }}</li>
+        </ul>
+        </div>
+    </div>
+
+    <h6 class="text-center mt-3 mb-3">Hover over each item to see details!</h6>
+<!-- ---------------------------------Tops--------------------------->
+    <div class="row">
+        <h3 class="m-auto text-center border-bottom">Tops</h3>
+    </div>
+    <div class="row  d-flex justify-content-center Tops" >
+        
+        {% for item in closet %}
+            {% if item.article_category=="Tops" %}
+    
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img class="img-thumbnail" src="{{ item.image }}" alt="{{ item.name }}">
+                  </div>
+                  <div class="flip-card-back">
+                    <div class="delete col">
+                        <a class="d-flex" href="/delete/{{ item.id }}">
+                            <div class="outer">
+                                <div class="inner">
+                                  <label>Delete</label>
+                                </div>
+                              </div>
+                        </a>
+                    </div>
+    
+                    <div class="col">
+                        <h2>{{ item.designer }}</h2>
+                        <h4>{{ item.name }}</h4>
+                        <h5>$ {{ item.price }}</h5>
+                    </div>
+                    
+                    
+                
+                    
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{item.name}}">
+                        Update
+                    </button>
+                  </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="{{item.name}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update item info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/update/{{ item.id }}" method="POST">
+                            {{ form.hidden_tag() }}
+                            <div  class="form-group">
+                                <fieldset>
+                                    <div class="form-group">
+                                        {{ form.article_category.label(class="form-control-label" )  }}
+                                        {{ form.article_category (class="form-select") }}
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        {{ form.designer.label (class="form-control-label") }}
+                                        <input class="form-control " id="designer" name="designer" required="" type="text" value="{{item.designer}}">
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        {{ form.name.label (class="form-control-label") }}
+                                        <input class="form-control " id="name" name="name" required="" type="text" value="{{item.name}}">
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        {{ form.price.label (class="form-control-label") }}
+                                        <input class="form-control " id="price" name="price" required="" type="text" value="{{item.price}}">
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        {{ form.image.label (class="form-control-label") }}
+                                        <input class="form-control " id="image" name="image" required="" type="text" value="{{item.image}}">
+                                    </div>
+                                    
+                                </fieldset>
+                                {{ form.submit_button(class="btn btn-success") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+<!-- ---------------------------------Bottoms--------------------------->
+    <div class="row">
+        <h3 class="m-auto text-center border-bottom">Bottoms</h3>
+    </div>
+    <div class="row d-flex justify-content-center Bottoms" >
+
+    {% for item in closet %}
+        {% if item.article_category=="Bottoms" %}
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img class="img-thumbnail" src="{{ item.image }}" alt="{{ item.name }}">
+              </div>
+              <div class="flip-card-back">
+                <div class="col">
+                    <a class="d-flex" href="/delete/{{ item.id }}">
+                        <div class="outer">
+                            <div class="inner">
+                              <label>Delete</label>
+                            </div>
+                          </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <h2>{{ item.designer }}</h2>
+                    <h4>{{ item.name }}</h4>
+                    <h5>$ {{ item.price }}</h5>
+                </div>
+                
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{item.name}}">
+                    Update
+                </button>
+              </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="{{item.name}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update item info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/update/{{ item.id }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <div  class="form-group">
+                            <fieldset>
+                                <div class="form-group">
+                                    {{ form.article_category.label(class="form-control-label" )  }}
+                                    {{ form.article_category (class="form-select") }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form.designer.label (class="form-control-label") }}
+                                    <input class="form-control " id="designer" name="designer" required="" type="text" value="{{item.designer}}">
+                                </div>
+                    
+                                <div class="form-group">
+                                    {{ form.name.label (class="form-control-label") }}
+                                    <input class="form-control " id="name" name="name" required="" type="text" value="{{item.name}}">
+                                </div>
+                    
+                                <div class="form-group">
+                                    {{ form.price.label (class="form-control-label") }}
+                                    <input class="form-control " id="price" name="price" required="" type="text" value="{{item.price}}">
+                                </div>
+                    
+                                <div class="form-group">
+                                    {{ form.image.label (class="form-control-label") }}
+                                    <input class="form-control " id="image" name="image" required="" type="text" value="{{item.image}}">
+                                </div>
+                                
+                            </fieldset>
+                            {{ form.submit_button(class="btn btn-success") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    <!-- ---------------------------------Shoes--------------------------->
+    <div class="row">
+        <h3 class="m-auto text-center border-bottom">Shoes</h3>
+    </div>
+    <div class="row d-flex justify-content-center Shoes" >
+
+        {% for item in closet %}
+            {% if item.article_category=="Shoes" %}
+    
+            <div class="flip-card col-2">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img class="img-thumbnail" src="{{ item.image }}" alt="{{ item.name }}">
+                  </div>
+                  <div class="flip-card-back">
+                    <div class="delete col">
+                        <a class="d-flex" href="/delete/{{ item.id }}">
+                            <div class="outer">
+                                <div class="inner">
+                                  <label>Delete</label>
+                                </div>
+                              </div>
+                        </a>
+                    </div>
+    
+                    <div class="col">
+                        <h2>{{ item.designer }}</h2>
+                        <h4>{{ item.name }}</h4>
+                        <h5>$ {{ item.price }}</h5>
+                    </div>
+                    
+                    
+                
+                    
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{item.name}}">
+                        Update
+                    </button>
+                  </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="{{item.name}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update item info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/update/{{ item.id }}" method="POST">
+                            {{ form.hidden_tag() }}
+                            <div  class="form-group">
+                                <fieldset>
+                                    <div class="form-group">
+                                        {{ form.article_category.label(class="form-control-label" )  }}
+                                        {{ form.article_category (class="form-select") }}
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        {{ form.designer.label (class="form-control-label") }}
+                                        <input class="form-control " id="designer" name="designer" required="" type="text" value="{{item.designer}}">
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        {{ form.name.label (class="form-control-label") }}
+                                        <input class="form-control " id="name" name="name" required="" type="text" value="{{item.name}}">
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        {{ form.price.label (class="form-control-label") }}
+                                        <input class="form-control " id="price" name="price" required="" type="text" value="{{item.price}}">
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        {{ form.image.label (class="form-control-label") }}
+                                        <input class="form-control " id="image" name="image" required="" type="text" value="{{item.image}}">
+                                    </div>
+                                    
+                                </fieldset>
+                                {{ form.submit_button(class="btn btn-success") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+
+{% endif %}
+{% endblock content %}
